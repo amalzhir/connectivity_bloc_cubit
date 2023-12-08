@@ -1,5 +1,4 @@
-/*
-part of 'internet_bloc.dart';
+part of 'internet_cubit.dart';
 
 @immutable
 abstract class InternetState {}
@@ -15,4 +14,4 @@ class NotConnectedInternet extends InternetState{
   final String message;
 
   NotConnectedInternet({required this.message});
-}*/
+}

@@ -1,3 +1,4 @@
+/*
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -34,3 +35,4 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
     return super.close();
   }
 }
+*/

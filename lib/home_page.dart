@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/internet_bloc.dart';
+import 'cubit/internet_cubit.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +12,21 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Home"),
       ),
-      body: BlocBuilder<InternetBloc, InternetState>(
+      body: BlocConsumer<InternetCubit, InternetState>(
+        listener: (context, state) {
+          if (state is NotConnectedInternet) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
         builder: (context, state) {
-          if(state is ConnectedState) {
+          if (state is ConnectedState) {
             return _buildTextWidget(state.message);
-          }else if (state is NotConnectedInternet){
+          } else if (state is NotConnectedInternet) {
             return _buildTextWidget(state.message);
           }
           return const SizedBox();
@@ -29,9 +39,11 @@ class HomePage extends StatelessWidget {
     return Center(
       child: Text(
         message,
-        style: const TextStyle(fontSize: 20),
+        style: const TextStyle(fontSize: 20,
+        fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
-
 }
+
